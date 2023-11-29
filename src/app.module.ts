@@ -11,10 +11,13 @@ import {
   ComputerModel,
   SingleBaseModel,
 } from './entity/inheritance.entity';
+import { ProfileModel } from './entity/profile.entity';
+import { PostModel } from './entity/post.entity';
+import { TagModel } from './entity/tag.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserModel]),
+    TypeOrmModule.forFeature([UserModel, ProfileModel, PostModel, TagModel]),
     TypeOrmModule.forRoot({
       // type of datbase
       type: 'postgres',
@@ -31,6 +34,9 @@ import {
         ComputerModel,
         AirplaneModel,
         SingleBaseModel,
+        ProfileModel,
+        PostModel,
+        TagModel,
       ],
       synchronize: true, //At production environmetn, this should be false
     }),

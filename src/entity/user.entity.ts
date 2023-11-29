@@ -1,12 +1,13 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  Generated,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
-  VersionColumn,
 } from 'typeorm';
+import { ProfileModel } from './profile.entity';
+import { PostModel } from './post.entity';
 
 @Entity()
 export class UserModel {
@@ -15,26 +16,37 @@ export class UserModel {
   id: number;
 
   @Column({
-    type: 'varchar',
-    name: 'title',
-    length: 300,
     nullable: true,
-    update: true,
-    //select: true,
   })
-  title: string;
+  email: string;
+  //   @Column({
+  //     type: 'varchar',
+  //     name: 'title',
+  //     length: 300,
+  //     nullable: true,
+  //     update: true,
+  //     //select: true,
+  //   })
+  //   title: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  //   @CreateDateColumn()
+  //   createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  //   @UpdateDateColumn()
+  //   updatedAt: Date;
 
-  //how many save fucntion call
-  @VersionColumn()
-  version: number;
+  //   //how many save fucntion call
+  //   @VersionColumn()
+  //   version: number;
 
-  @Column()
-  @Generated('uuid')
-  additionalId: string;
+  //   @Column()
+  //   @Generated('uuid')
+  //   additionalId: string;
+
+  @OneToOne(() => ProfileModel, (profile) => profile.user)
+  @JoinColumn()
+  profile: ProfileModel;
+
+  @OneToMany(() => PostModel, (post) => post.author)
+  posts: PostModel[];
 }
