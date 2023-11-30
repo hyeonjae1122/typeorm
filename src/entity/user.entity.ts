@@ -43,7 +43,10 @@ export class UserModel {
   //   @Generated('uuid')
   //   additionalId: string;
 
-  @OneToOne(() => ProfileModel, (profile) => profile.user)
+  @OneToOne(() => ProfileModel, (profile) => profile.user, {
+    eager: true,
+    cascade: true, //Cascade option keep user to save in controller
+  })
   @JoinColumn()
   profile: ProfileModel;
 
