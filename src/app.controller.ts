@@ -27,6 +27,38 @@ export class AppController {
     });
   }
 
+  @Get('users')
+  getUsers() {
+    return this.userRepository.find({
+      //if select option is not defined, get all property.
+      //if select option is defiend, gett selected property.
+      select: {
+        id: true,
+        version: true,
+        profile: {
+          id: true,
+        },
+      },
+      where: {
+        profile: {
+          id: 3,
+        },
+      },
+      // how to get relations
+      relations: {
+        profile: true,
+      },
+      //ASC
+      //DESC
+      order: {
+        id: 'ASC',
+      },
+      // how much should we exclude first?
+      skip: 1,
+      take: 1, //if 0, get all data,
+    });
+  }
+
   // @Post('users')
   // createPost() {
   //   return this.userRepository.save({
@@ -56,7 +88,7 @@ export class AppController {
         id: +id,
       },
     });
-    return this.userRepository.save({ ...user });
+    return this.userRepository.save({ ...user, email: user.email + '0' });
   }
 
   @Post('user/profile')

@@ -5,6 +5,8 @@ import {
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  VersionColumn,
 } from 'typeorm';
 import { ProfileModel } from './profile.entity';
 import { PostModel } from './post.entity';
@@ -32,12 +34,12 @@ export class UserModel {
   //   @CreateDateColumn()
   //   createdAt: Date;
 
-  //   @UpdateDateColumn()
-  //   updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
   //   //how many save fucntion call
-  //   @VersionColumn()
-  //   version: number;
+  @VersionColumn()
+  version: number;
 
   //   @Column()
   //   @Generated('uuid')
